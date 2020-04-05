@@ -5,10 +5,7 @@ using System.Threading.Tasks;
 
 namespace FitbitWebApplication.Models
 {
-    public enum FitnessGoal
+    public class SprintsWorkoutPlan : WorkoutPlan
     {
-        WeightLoss,
-        Endurance,
-        Strength
     }
 }
