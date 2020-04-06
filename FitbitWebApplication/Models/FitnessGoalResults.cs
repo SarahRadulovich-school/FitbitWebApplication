@@ -23,6 +23,8 @@ namespace FitbitWebApplication.Models
                 default:
                     return new SprintsWorkoutPlan();
             }
+
+            //TODO:pass timeCommitment to workout plans
         }
     }
 }
