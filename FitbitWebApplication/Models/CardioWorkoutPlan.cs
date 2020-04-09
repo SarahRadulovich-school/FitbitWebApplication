@@ -7,5 +7,11 @@ namespace FitbitWebApplication.Models
 {
     public class CardioWorkoutPlan : WorkoutPlan
     {
+
+        public CardioWorkoutPlan()
+        {
+            base.Name = "Cardio";
+            base.IsCompleted = false;
+        }
     }
 }

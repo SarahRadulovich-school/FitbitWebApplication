@@ -9,6 +9,7 @@ namespace FitbitWebApplication.Models
     {
         public List<Interval> Intervals { get; set; }
         public string Name { get; set; }
+        public bool IsCompleted { get; set; }   
 
         public void StartWorkout() { }
         public void StartInterval() { }
