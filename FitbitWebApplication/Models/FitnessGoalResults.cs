@@ -10,21 +10,8 @@ namespace FitbitWebApplication.Models
         public FitnessGoal FitnessGoal { get; set; }
         public TimeCommitment TimeCommitment { get; set; }
 
-        public WorkoutPlan CalculatePlan()
+        public void CalculatePlan()
         {
-            switch(FitnessGoal)
-            {
-                case FitnessGoal.WeightLoss:
-                    return new CardioWorkoutPlan();
-                case FitnessGoal.Endurance:
-                    return new IntervalWorkoutPlan();
-                case FitnessGoal.Strength:
-                    return new SprintsWorkoutPlan();
-                default:
-                    return new SprintsWorkoutPlan();
-            }
-
-            //TODO:pass timeCommitment to workout plans
         }
     }
 }
