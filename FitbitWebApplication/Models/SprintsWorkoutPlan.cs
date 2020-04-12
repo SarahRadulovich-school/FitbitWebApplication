@@ -7,5 +7,10 @@ namespace FitbitWebApplication.Models
 {
     public class SprintsWorkoutPlan : WorkoutPlan
     {
+        public SprintsWorkoutPlan()
+        {
+            base.Name = "Sprints";
+            base.IsCompleted = false;
+        }
     }
 }

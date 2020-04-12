@@ -7,5 +7,10 @@ namespace FitbitWebApplication.Models
 {
     public class IntervalWorkoutPlan : WorkoutPlan
     {
+        public IntervalWorkoutPlan()
+        {
+            base.Name = "Interval";
+            base.IsCompleted = false;
+        }
     }
 }
