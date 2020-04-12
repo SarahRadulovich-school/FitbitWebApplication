@@ -18,14 +18,9 @@ namespace FitbitWebApplication.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(UserProfile user)
         {
-            return View();
-        }
-
-        public IActionResult Login()
-        {
-            return View();
+            return View(user);
         }
 
         public IActionResult Workout()
@@ -38,9 +33,10 @@ namespace FitbitWebApplication.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult SelectWorkout()
         {
-            return View();
+            //When the user selects their workout, they return to the home page where it says the currently selected workout
+            return View("Index");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -1,4 +1,5 @@
-﻿@{
+﻿@model UserProfile
+@{
     ViewData["Title"] = "FitnessPlan";
 }
 
@@ -11,15 +12,15 @@
         <div>
             <h6>I want to lose weight...</h6>
             <div class="weight plan">
-                <button>Select Interval Workout</button>
+                <button asp-action="SelectWorkout" value="Interval">Select Interval Workout</button>
             </div>
             <h6>I want to build strength...</h6>
             <div class="strength plan">
-                <button>Select Sprint Workout</button>
+                <button asp-action="SelectWorkout" asp-for="CurrentPlan" value="Sprint">Select Sprint Workout</button>
             </div>
             <h6>I want to build endurance...</h6>
             <div class="endurance plan">
-                <button>Select Steady State Workout</button>
+                <button asp-action="SelectWorkout" asp-for="CurrentPlan" value="Cardio">Select Cardio Workout</button>
             </div>
         </div>
     </div>
