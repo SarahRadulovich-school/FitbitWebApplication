@@ -28,9 +28,9 @@
                         <h1 class="title">Login</h1>
                         <h6>Don't have an account? <a class="account-link">Create one here</a></h6>
 
-                        <form asp-action="LoginForm" method="post">
+                        <form asp-action="LoginForm">
                             <input asp-for="Name" class="textbox" type="text" placeholder="Your Name" /><br /><br />
-                            <input asp-for="Id" class="textbox" type="text" placeholder="Your ID" /><br /><br />
+                            <input class="textbox" type="text" placeholder="Password (Optional)" /><br /><br />
                             <input id="remember" type="checkbox" />
                             <label for="remember">Remember Me</label>
                             <a class="account-link" id="forgot-password">Forgot Password?</a><br /><br />

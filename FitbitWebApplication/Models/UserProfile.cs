@@ -11,9 +11,8 @@ namespace FitbitWebApplication.Models
         public string Name { get; set; }
         public DateTime Birthday { get; set; }
         public string Gender { get; set; }
-        public WorkoutPlan CurrentPlan { get; set; }
-        public WorkoutHistory History { get; set; }
-        public int HeartRate { get; set; }
+        //public WorkoutPlan CurrentPlan { get; set; }
+        //public WorkoutHistory History { get; set; }
 
         public UserProfile()
         {
@@ -29,7 +28,7 @@ namespace FitbitWebApplication.Models
 
         public void ChangePlan(WorkoutPlan newPlan)
         {
-            CurrentPlan = newPlan;
+            //CurrentPlan = newPlan;
         }
 
         public void LinkToFitbit()

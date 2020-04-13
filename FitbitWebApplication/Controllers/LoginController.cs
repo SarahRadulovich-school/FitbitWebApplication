@@ -9,6 +9,7 @@ namespace FitbitWebApplication.Controllers
 {
     public class LoginController : Controller
     {
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
@@ -23,7 +24,13 @@ namespace FitbitWebApplication.Controllers
                 return View();
             }
 
-            return RedirectToAction("Index", "Home", user);
+            string userName = user.Name;
+
+            //Either find or create the user in the database
+            Repository.AddUser(userName);
+
+
+            return RedirectToAction("Index", "Home", userName);
         }
     }
 }

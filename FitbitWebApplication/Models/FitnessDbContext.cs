@@ -8,10 +8,8 @@ namespace FitbitWebApplication
 {
     class FitnessDbContext : DbContext
     {
-        //classes that need to be saved in the database
-        public DbSet<UserProfile> Profile { get; set; }
-        //WorkoutHistory Table
-        //HeartRate table
+        public DbSet<UserProfile> Users { get; set; }
+        public DbSet<Workout> Workouts { get; set; }    
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
