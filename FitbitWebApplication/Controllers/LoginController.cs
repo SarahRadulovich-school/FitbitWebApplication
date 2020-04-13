@@ -29,8 +29,7 @@ namespace FitbitWebApplication.Controllers
             //Either find or create the user in the database
             Repository.AddUser(userName);
 
-
-            return RedirectToAction("Index", "Home", userName);
+            return RedirectToAction("Index", "Home", user);
         }
     }
 }

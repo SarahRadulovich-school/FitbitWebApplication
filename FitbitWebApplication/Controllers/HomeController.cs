@@ -12,19 +12,18 @@ namespace FitbitWebApplication.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private UserProfile _user;
-        private FitnessDbContext _dbContext;
+        public UserProfile User { get; set; }
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            _dbContext = new FitnessDbContext();
-            _user = new UserProfile();
+            User = new UserProfile();
         }
 
-        public IActionResult Index(string userName)
+        public IActionResult Index(UserProfile user)
         {
-            return View(userName);
+            User.Name = user.Name;
+            return View(User);
         }
 
         public IActionResult Workout()
@@ -34,6 +33,7 @@ namespace FitbitWebApplication.Controllers
 
         public IActionResult FitnessPlan()
         {
+            ViewBag.Username = User.Name;
             return View();
         }
 

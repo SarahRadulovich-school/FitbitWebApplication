@@ -10,6 +10,17 @@ namespace FitbitWebApplication.Models
     {
         private static FitnessDbContext _database = new FitnessDbContext();
 
+        //public static UserProfile GetUser(string name)
+        //{
+        //    var user = _database.Users.FirstOrDefault(u => u.Name.Equals(name));
+
+        //    if(user == null)
+        //    {
+        //        throw new Exception("User does not exist");
+        //    }
+
+        //    return user;
+        //}
         public static void AddUser(string name)
         {
             //no duplicate id's allowed
