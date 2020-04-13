@@ -22,10 +22,12 @@
                         Keeps your heart rate up
                     </li>
                     <li>
-
+                        Great balance between strength and endurance training
                     </li>
                 </ul>
-                <button asp-action="SelectWorkout" value="Interval">Select Interval Workout</button>
+                <form asp-action="SelectIntervalWorkout">
+                    <button type="submit">Select Interval Workout</button>
+                </form>
             </div>
             <br />
             <h5>I want to build strength...</h5>
@@ -42,7 +44,9 @@
                         A workout that practices your sprinting abilities
                     </li>
                 </ul>
-                <button asp-action="SelectWorkout" asp-for="CurrentPlan" value="Sprint">Select Sprint Workout</button>
+                <form asp-action="SelectSprintWorkout">
+                    <button asp-action="SelectSprintWorkout">Select Sprint Workout</button>
+                </form>
             </div>
             <br />
             <h5>I want to build endurance...</h5>
@@ -56,10 +60,12 @@
                         Improves long distance running abilities
                     </li>
                     <li>
-                        
+                        A steady state workout designed for distance
                     </li>
                 </ul>
-                <button asp-action="SelectWorkout" asp-for="CurrentPlan" value="Cardio">Select Cardio Workout</button>
+                <form asp-action="SelectCardioWorkout">
+                    <button asp-action="SelectCardioWorkout">Select Cardio Workout</button>
+                </form>
             </div>
             <br /><br />
         </div>

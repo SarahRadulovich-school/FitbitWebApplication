@@ -37,10 +37,20 @@ namespace FitbitWebApplication.Controllers
             return View();
         }
 
-        public IActionResult SelectWorkout()
+        public IActionResult SelectIntervalWorkout()
         {
-            //When the user selects their workout, they return to the home page where it says the currently selected workout
-            return View("Index");
+            //User.CurrentPlan = new IntervalWorkoutPlan();
+            return RedirectToAction("Index", User);
+        }
+        public IActionResult SelectSprintWorkout()
+        {
+            //User.CurrentPlan = new SprintWorkoutPlan();
+            return RedirectToAction("Index", User);
+        }
+        public IActionResult SelectCardioWorkout()
+        {
+            //User.CurrentPlan = new CardioWorkoutPlan();
+            return RedirectToAction("Index", User);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
