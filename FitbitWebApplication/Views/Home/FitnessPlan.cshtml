@@ -5,23 +5,63 @@
 
 <link rel="stylesheet" href="~/css/fitnessplan.css" />
 
-<div class="container">
+<div class="container outer-content">
     <h1>Select a Fitness Plan</h1>
     <br />
     <div class="content col-9">
-        <div>
-            <h6>I want to lose weight...</h6>
+        <div class="container m-auto">
+            <br />
+            <h5>I want to lose weight...</h5>
             <div class="weight plan">
+                <img src="~/Assets/lose-weight.png" />
+                <ul>
+                    <li>
+                        An interval workout optimizes weight loss
+                    </li>
+                    <li>
+                        Keeps your heart rate up
+                    </li>
+                    <li>
+
+                    </li>
+                </ul>
                 <button asp-action="SelectWorkout" value="Interval">Select Interval Workout</button>
             </div>
-            <h6>I want to build strength...</h6>
+            <br />
+            <h5>I want to build strength...</h5>
             <div class="strength plan">
+                <img src="~/Assets/strength.png" />
+                <ul>
+                    <li>
+                        Improves running speed
+                    </li>
+                    <li>
+                        Builds muscle
+                    </li>
+                    <li>
+                        A workout that practices your sprinting abilities
+                    </li>
+                </ul>
                 <button asp-action="SelectWorkout" asp-for="CurrentPlan" value="Sprint">Select Sprint Workout</button>
             </div>
-            <h6>I want to build endurance...</h6>
+            <br />
+            <h5>I want to build endurance...</h5>
             <div class="endurance plan">
+                <img src="~/Assets/lung.png" />
+                <ul>
+                    <li>
+                        Improves cardio vascular health
+                    </li>
+                    <li>
+                        Improves long distance running abilities
+                    </li>
+                    <li>
+                        
+                    </li>
+                </ul>
                 <button asp-action="SelectWorkout" asp-for="CurrentPlan" value="Cardio">Select Cardio Workout</button>
             </div>
+            <br /><br />
         </div>
     </div>
 </div>

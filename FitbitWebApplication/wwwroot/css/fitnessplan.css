@@ -8,12 +8,25 @@ h1 {
     font-weight: bold;
     color: #444444;
     margin-top: 2rem;
+    text-align: center;
 }
 
 .content {
     background-color: white;
     border-radius: 15px;
     border-top: solid #AEBD24 35px;
+    margin: 0 auto;
+}
+
+.outer-content {
+    margin-left: auto;
+}
+
+img{
+    width: 8rem;
+    height: 8rem;
+    float: left;
+    margin-right: 4rem;
 }
 
 button {
