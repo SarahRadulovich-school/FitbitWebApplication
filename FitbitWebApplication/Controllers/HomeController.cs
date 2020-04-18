@@ -12,22 +12,24 @@ namespace FitbitWebApplication.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+
         public UserProfile User { get; set; }
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            User = new UserProfile();
+            User = UserProfile.Instance;
         }
 
-        public IActionResult Index(UserProfile user)
+        public IActionResult Index()
         {
-            User.Name = user.Name;
-            return View(User);
+            ViewBag.Username = User.Name;
+            return View();
         }
 
         public IActionResult Workout()
         {
+            ViewBag.Username = User.Name;
             return View();
         }
 
@@ -39,17 +41,20 @@ namespace FitbitWebApplication.Controllers
 
         public IActionResult SelectIntervalWorkout()
         {
-            //User.CurrentPlan = new IntervalWorkoutPlan();
+            ViewBag.Username = User.Name;
+            User.CurrentPlan = new IntervalWorkoutPlan();
             return RedirectToAction("Index", User);
         }
         public IActionResult SelectSprintWorkout()
         {
-            //User.CurrentPlan = new SprintWorkoutPlan();
+            ViewBag.Username = User.Name;
+            User.CurrentPlan = new SprintsWorkoutPlan();
             return RedirectToAction("Index", User);
         }
         public IActionResult SelectCardioWorkout()
         {
-            //User.CurrentPlan = new CardioWorkoutPlan();
+            ViewBag.Username = User.Name;
+            User.CurrentPlan = new CardioWorkoutPlan();
             return RedirectToAction("Index", User);
         }
 

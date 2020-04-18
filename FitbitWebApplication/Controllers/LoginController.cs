@@ -24,12 +24,13 @@ namespace FitbitWebApplication.Controllers
                 return View();
             }
 
-            string userName = user.Name;
+            var userProfile = UserProfile.Instance;
+            userProfile.Name = user.Name;
 
             //Either find or create the user in the database
-            Repository.AddUser(userName);
+            Repository.AddUser(user.Name);
 
-            return RedirectToAction("Index", "Home", user);
+            return RedirectToAction("Index", "Home");
         }
     }
 }
