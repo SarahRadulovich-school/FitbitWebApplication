@@ -71,5 +71,19 @@ namespace FitbitWebApplication.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public IActionResult TimerTest()
+        {
+            //TODO: pass interval list to this controller method instead of creating it here
+            var workoutPlan = new CardioWorkoutPlan();
+
+            var list = workoutPlan.Intervals;
+            var name = workoutPlan.Name;
+
+            ViewBag.Username = User.Name;
+            ViewBag.TimerList = list;
+
+            return View(list);
+        }
     }
 }
