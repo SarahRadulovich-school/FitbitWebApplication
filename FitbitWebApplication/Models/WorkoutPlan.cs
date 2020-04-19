@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace FitbitWebApplication.Models
 {
@@ -9,10 +10,7 @@ namespace FitbitWebApplication.Models
     {
         public List<Interval> Intervals { get; set; }
         public string Name { get; set; }
-        public bool IsCompleted { get; set; }   
+        public bool IsCompleted { get; set; }
 
-        public void StartWorkout() { }
-        public void StartInterval() { }
-        public void EndWorkout() { }
     }
 }

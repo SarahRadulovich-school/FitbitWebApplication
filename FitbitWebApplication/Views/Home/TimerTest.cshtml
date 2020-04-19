@@ -1,0 +1,148 @@
+﻿@model IEnumerable<Interval>
+@{
+    ViewData["Title"] = "Test Timer";
+    ViewData["Username"] = ViewBag.Username;
+    var list = Model;
+}
+
+
+<link rel="stylesheet" href="~/css/fitnessplan.css" />
+
+<button onclick="startWorkout()">Start the workout!</button>
+<div>Registration closes in <span id="time"></span> minutes!</div>
+<br/>
+<span id="test">not updated</span>
+
+<audio id="highBeep">
+    <source src="~/Assets/highBeep.wav" type="audio/wav">
+</audio>
+<audio id="lowBeep">
+    <source src="~/Assets/lowBeep.wav" type="audio/wav">
+</audio>
+<audio id="swoosh">
+    <source src="~/Assets/swoosh.ogg" type="audio/ogg">
+</audio>
+
+<script>
+    //get the list of intervals
+    var intervals = @Html.Raw(Json.Serialize(list.Select(
+                      interval => new
+                      {
+                          rpe = interval.RPE,
+                          desc = interval.Desc,
+                          secs = interval.Secs
+                      })
+                 ));
+
+    //keep track of index of the current interval 
+    var intIndex = 0;
+
+    //display variables
+    var display = document.querySelector('#time');
+    var test = document.querySelector('#test');
+
+    //audio variables
+    var highBeep = document.querySelector('#highBeep');
+    var lowBeep = document.querySelector('#lowBeep');
+    var swoosh = document.querySelector('#swoosh');
+
+    //starts and handles the timer and display for one interval of the workout
+    function startTimer(duration) {
+        var start = Date.now(),
+            diff,
+            minutes,
+            seconds;
+
+        var timesRun = 0;
+
+        function timer() {
+            // get the number of seconds that have elapsed since 
+            // startTimer() was called
+            diff = duration - (((Date.now() - start) / 1000) | 0);
+
+            // does the same job as parseInt truncates the float
+            minutes = (diff / 60) | 0;
+            seconds = (diff % 60) | 0;
+
+            if (diff <= 3 && diff > 0) {
+                lowBeep.play();
+            }
+
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            display.textContent = minutes + ":" + seconds; 
+
+        };
+        // we don't want to wait a full second before the timer starts
+        timer();
+        var interval = setInterval(function() {
+                timesRun += 1;
+                if (timesRun === duration) {
+                    clearInterval(interval);
+
+                    //add 1 to the index and call start interval again
+                    intIndex ++;
+                    startInterval(intIndex);
+                }
+                timer();
+            },
+            1000);
+    };
+
+    //gets called by button and then at the end of each interval to start the next interval (if there is one)
+    function startInterval(index) {
+
+        if (index >= intervals.length) {
+            endWorkout();
+            return;
+        }
+
+        var currInterval = intervals[index];
+
+        //TODO: change this to actual display
+        test.textContent = `${currInterval.rpe} - ${currInterval.desc}`;
+
+        swoosh.play();
+        startTimer(currInterval.secs);
+
+    };
+
+    //directed here after timer end to pass the index of
+    function endWorkout() {
+        intIndex = 0;
+        test.textContent = "Workout Completed!";
+
+        var count = 0;
+        //play end beep three times
+        var interval = setInterval(function () {
+                count ++;
+                if (count === 3) {
+                    clearInterval(interval);
+                }
+                highBeep.play();
+            },
+            200);
+
+
+    }
+
+    //start the workout with a 3-second get ready timer
+    function startWorkout() {
+        //play countdown beeps
+        var count = 0;
+        var interval = setInterval(function () {
+                count ++;
+                if (count === 4) {
+                    clearInterval(interval);
+                    startInterval(0);
+                }
+                if (count < 4)
+                    lowBeep.play();
+            },
+            1000);
+
+        test.textContent = "Get Ready!";
+    }
+
+</script>

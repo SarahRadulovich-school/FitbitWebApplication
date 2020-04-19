@@ -1,18 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FitbitWebApplication.Models
 {
     public class Interval
     {
-        public HRZone TargetZone { get; set; }
-        public double SecsInZone { get; set; }
+        //using the Rate of Perceived Exertion scale
+        public int RPE { get; set; }
+        //message to tell user how hard to push (ex. Hard breathing, can only say one or two words, comfortable walk)
+        public string Desc { get; set; }
+        public int Secs { get; set; }
 
-        public void GetIntervaleEnd()
+        public Interval(int rpe, string desc, int secs)
         {
-
+            RPE = rpe;
+            Desc = desc;
+            Secs = secs;
         }
     }
 }
