@@ -30,16 +30,9 @@ namespace FitbitWebApplication.Models
             }
         }
 
-        public UserProfile()
+        private UserProfile()
         {
 
-        }
-
-        public UserProfile(string name, DateTime birthday, string gender)
-        {
-            Name = name;
-            Birthday = birthday;
-            Gender = gender;
         }
 
         public void ChangePlan(WorkoutPlan newPlan)
