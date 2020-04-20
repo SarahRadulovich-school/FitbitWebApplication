@@ -1,24 +1,40 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "History";
     ViewData["Username"] = ViewBag.Username;
+    int index = 1;
 }
-
+<link rel="stylesheet" href="~/css/history.css" />
+<br />
 <h1>Workout History</h1>
-<br /><br />
+<br />
+<br />
 <table class="table">
     <tr>
+        <th scope="col">#</th>
         <th scope="col">Workout Type</th>
-        <th scope="col">Time Started</th>
-        <th scope="col">Time Ended</th>
+        <th scope="col">Started Workout</th>
+        <th scope="col">Total Time</th>
+        <th scope="col">Completed</th>
     </tr>
-    @for(int i = 0; i < ViewBag.History.Count; i++)
+    @for (int i = 0; i < ViewBag.History.Count; i++)
     {
         <tr>
-            <td scope="row">@ViewBag.History[i].WorkoutType</td>
+            <th scope="row">@index</th>
+            <td>@ViewBag.History[i].WorkoutType</td>
             <td>@ViewBag.History[i].TimeStarted</td>
-            <td>@ViewBag.History[i].TimeEnded</td>
+            @{var time = (ViewBag.History[i].TimeEnded - ViewBag.History[i].TimeStarted);}
+            <td>@time</td>
+            @{if (ViewBag.History[i].isCompleted)
+                {
+                    <td>Yes</td>
+                }
+                else
+                {
+                    <td>No</td>
+                }
+            }
         </tr>
+        index = index + 1;
     }
 </table>
 

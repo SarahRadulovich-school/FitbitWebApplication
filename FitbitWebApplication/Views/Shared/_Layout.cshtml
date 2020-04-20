@@ -32,7 +32,7 @@
                 </svg>
                 <div class="dropdown" width="2em" height="2em">
                     <button class="dropbtn" onclick="dropDown()">
-                        <svg class="bi bi-chevron-down icon" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <svg onclick="dropDown()" class="bi bi-chevron-down icon" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 01.708 0L8 10.293l5.646-5.647a.5.5 0 01.708.708l-6 6a.5.5 0 01-.708 0l-6-6a.5.5 0 010-.708z" clip-rule="evenodd" />
                         </svg>
                     </button>
@@ -67,7 +67,6 @@
         window.onclick = function (event) {
 
             if (!event.target.matches('.dropbtn')) {
-                console.log("clicked!");
                 var dropdowns = document.getElementsByClassName("dropdown-content");
                 var i;
                 for (i = 0; i < dropdowns.length; i++) {
