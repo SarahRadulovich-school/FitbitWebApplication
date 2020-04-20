@@ -71,5 +71,22 @@ namespace FitbitWebApplication.Controllers
 
             return View(list);
         }
+
+        [HttpPost]
+        public IActionResult Save(string completed)
+        {
+            bool isCompleted = completed == "true";
+
+            if (User == null)
+            {
+                User = UserProfile.Instance;
+            }
+
+            string type = User.CurrentPlan.Name;
+
+            Repository.AddWorkout(User, type, isCompleted);
+
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

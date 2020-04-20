@@ -20,12 +20,12 @@
         <button onclick="startWorkout()" class="button">Start the workout!</button>
     </div>
     <div class="timer-inner-container" id="workout-div" style="display: none">
-        <br/>
+        <br />
 
         <div class="base-timer">
             <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                 <g class="base-timer__circle">
-                    <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45"/>
+                    <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45" />
                     <path id="base-timer-path-remaining"
                           stroke-dasharray="283"
                           class="base-timer__path-remaining"
@@ -39,6 +39,10 @@
             </svg>
             <span id="base-timer-label" class="base-timer__label"></span>
         </div>
+        
+        <form asp-action="Save">
+            <button onclick="testFunction()" class="button" id="submit-button"  name="complete" value="false" type="submit">Give up</button>
+        </form>
     </div>
 </div>
     <audio id="highBeep">
@@ -51,7 +55,11 @@
         <source src="~/Assets/swoosh.ogg" type="audio/ogg">
     </audio>
 
-
+<script>
+    function testFunction() {
+        console.log("clicked");
+    }
+</script>
 <!--Timer functionality script-->
 <script>
     //get the list of intervals
@@ -135,18 +143,18 @@
         }
 
         var interval = setInterval(function () {
-            timesRun += 1;
-            if (timesRun === duration) {
-                clearInterval(interval);
+                timesRun += 1;
+                if (timesRun === duration) {
+                    clearInterval(interval);
 
-                //add 1 to the index and call start interval again
-                intIndex++;
-                startInterval(intIndex);
-            }
-            timer();
-            setCircleDasharray();
-        },
-        1000);
+                    //add 1 to the index and call start interval again
+                    intIndex++;
+                    startInterval(intIndex);
+                }
+                timer();
+                setCircleDasharray();
+            },
+            1000);
     };
 
     //gets called by button and then at the end of each interval to start the next interval (if there is one)
@@ -175,9 +183,11 @@
     function endWorkout() {
         intIndex = 0;
 
-        var intOut = document.getElementById("track-interval").textContent = "Workout Complete!";
-        var rpeOut = document.getElementById("track-rpe").textContent = "";
-        var descOut = document.getElementById("track-desc").textContent = "";
+        document.getElementById("track-interval").textContent = "Workout Complete!";
+        document.getElementById("track-rpe").textContent = "";
+        document.getElementById("track-desc").textContent = "";
+        document.getElementById("submit-button").setAttribute("value", "true");
+        document.getElementById("submit-button").innerHTML = "Continue";
 
         changeColor(0);
 
@@ -223,8 +233,6 @@
                 }
             },
             1000);
-
-        intInfo.textContent = "Get Ready!";
     }
 
     function calculateTimeFraction() {
