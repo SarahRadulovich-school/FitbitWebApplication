@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FitbitWebApplication.Migrations
 {
-    public partial class UserAndWorkouts : Migration
+    public partial class UsersAndWorkouts : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,7 +14,8 @@ namespace FitbitWebApplication.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: false),
-                    Birthday = table.Column<DateTime>(nullable: true),
+                    Password = table.Column<string>(nullable: false),
+                    Birthday = table.Column<DateTime>(nullable: false),
                     Gender = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -28,10 +29,11 @@ namespace FitbitWebApplication.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(nullable: false),
-                    TimeStarted = table.Column<DateTime>(nullable: true),
-                    TimeEnded = table.Column<DateTime>(nullable: true),
-                    WorkoutType = table.Column<string>(nullable: false)
+                    UserId = table.Column<int>(nullable: true),
+                    TimeStarted = table.Column<DateTime>(nullable: false),
+                    TimeEnded = table.Column<DateTime>(nullable: false),
+                    WorkoutType = table.Column<string>(nullable: true),
+                    isCompleted = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {

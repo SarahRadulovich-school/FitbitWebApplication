@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitbitWebApplication.Migrations
 {
     [DbContext(typeof(FitnessDbContext))]
-    [Migration("20200420015559_Password")]
-    partial class Password
+    [Migration("20200420184507_UsersAndWorkouts")]
+    partial class UsersAndWorkouts
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -35,9 +35,11 @@ namespace FitbitWebApplication.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -63,6 +65,9 @@ namespace FitbitWebApplication.Migrations
 
                     b.Property<string>("WorkoutType")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("isCompleted")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 

@@ -20,18 +20,19 @@
         <tr>
             <th scope="row">@index</th>
             <td>@ViewBag.History[i].WorkoutType</td>
-            <td>@ViewBag.History[i].Date</td>
+            <td class="date-column">@ViewBag.History[i].Date</td>
             @{if (ViewBag.History[i].isCompleted)
-                {
-                    <td>Yes</td>
-                }
-                else
-                {
-                    <td>No</td>
-                }
+              {
+                  <td>Yes</td>
+              }
+              else
+              {
+                  <td>No</td>
+              }
             }
         </tr>
         index = index + 1;
     }
 </table>
+
 
