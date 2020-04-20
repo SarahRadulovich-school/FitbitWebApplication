@@ -14,7 +14,10 @@ namespace FitbitWebApplication.Controllers
         //page to select a workout 
         public IActionResult Index()
         {
-            User = UserProfile.Instance;
+            if (User == null)
+            {
+                User = UserProfile.Instance;
+            }
 
             ViewBag.Username = User.Name;
 
@@ -75,7 +78,7 @@ namespace FitbitWebApplication.Controllers
         [HttpPost]
         public IActionResult Save(string completed)
         {
-            bool isCompleted = completed == "true";
+            bool isCompleted = (completed == "true");
 
             if (User == null)
             {
@@ -84,7 +87,7 @@ namespace FitbitWebApplication.Controllers
 
             string type = User.CurrentPlan.Name;
 
-            Repository.AddWorkout(User, type, isCompleted);
+            Repository.AddWorkout(type, isCompleted);
 
             return RedirectToAction("Index", "Home");
         }

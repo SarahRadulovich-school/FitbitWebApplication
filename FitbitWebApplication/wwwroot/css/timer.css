@@ -101,3 +101,7 @@
     height: 200px;
     display: inline-block;
 }
+
+.h2, h3, h4 {
+    font-family: Bahnschrift;
+}

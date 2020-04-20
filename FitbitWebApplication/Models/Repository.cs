@@ -25,19 +25,19 @@ namespace FitbitWebApplication.Models
             return true;
         }
 
-        public static void AddWorkout(UserProfile user, string workoutType, bool completed)
+        public static void AddWorkout(string workoutType, bool completed)
         {
+            var user = UserProfile.Instance;
+            var person = _database.Users.Where(u => u.Name == user.Name).FirstOrDefault();
             //TODO: TimeStarted and TimeCompleted
-            var workout = new Workout
-            {
-                User = user,
-                WorkoutType = workoutType,
-                isCompleted =  completed
-            };
-            GetWorkoutHistory();
+            var workout = new Workout();
+            workout.User = person;
+            workout.WorkoutType = workoutType;
+            workout.isCompleted = completed;
             _database.Workouts.Add(workout);
             _database.SaveChanges();
 
+            GetWorkoutHistory();
         }
 
         public static void AssignBirthdayToUser()
@@ -53,7 +53,7 @@ namespace FitbitWebApplication.Models
         public static void GetWorkoutHistory()
         {
             var user = UserProfile.Instance;
-            var person = _database.Users.FirstOrDefault(u => u.Name == user.Name);
+            var person = _database.Users.Where(u => u.Name == user.Name).FirstOrDefault();
             List<Workout> list = _database.Workouts.Include(w => w.User).Where(w => w.User.Id == person.Id).ToList();
 
             user.History = list;
@@ -61,7 +61,7 @@ namespace FitbitWebApplication.Models
 
         public static string GetPassword(UserProfile username)
         {
-            var pass = _database.Users.FirstOrDefault(u => u.Name == username.Name).Password;
+            var pass = _database.Users.Where(u => u.Name == username.Name).FirstOrDefault().Password;
             return pass;
         }
     }
