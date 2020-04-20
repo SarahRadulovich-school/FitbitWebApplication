@@ -35,35 +35,9 @@ namespace FitbitWebApplication.Controllers
             return View();
         }
 
-        public IActionResult Workout()
+        public IActionResult ToWorkout()
         {
-            ViewBag.Username = User.Name;
-            return View();
-        }
-
-        public IActionResult FitnessPlan()
-        {
-            ViewBag.Username = User.Name;
-            return View();
-        }
-
-        public IActionResult SelectIntervalWorkout()
-        {
-            ViewBag.Username = User.Name;
-            User.CurrentPlan = new IntervalWorkoutPlan();
-            return RedirectToAction("Index", User);
-        }
-        public IActionResult SelectSprintWorkout()
-        {
-            ViewBag.Username = User.Name;
-            User.CurrentPlan = new SprintsWorkoutPlan();
-            return RedirectToAction("Index", User);
-        }
-        public IActionResult SelectCardioWorkout()
-        {
-            ViewBag.Username = User.Name;
-            User.CurrentPlan = new CardioWorkoutPlan();
-            return RedirectToAction("Index", User);
+            return RedirectToAction("Index", "Workout");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -72,18 +46,5 @@ namespace FitbitWebApplication.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public IActionResult TimerTest()
-        {
-            //TODO: pass interval list to this controller method instead of creating it here
-            var workoutPlan = new CardioWorkoutPlan();
-
-            var list = workoutPlan.Intervals;
-            var name = workoutPlan.Name;
-
-            ViewBag.Username = User.Name;
-            ViewBag.TimerList = list;
-
-            return View(list);
-        }
     }
 }
