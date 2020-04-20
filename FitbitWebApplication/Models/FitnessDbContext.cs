@@ -15,7 +15,7 @@ namespace FitbitWebApplication
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //change database name, server name or any other credentials needed for storing locally
-            optionsBuilder.UseSqlServer(@"Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=FitnessDatabase;Data Source=(localdb)\MSSQLLocalDB");
+            optionsBuilder.UseSqlServer(@"Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=FitnessDatabase;Data Source=SARAHS-BABY\SQLEXPRESS");
         }
     }
 }

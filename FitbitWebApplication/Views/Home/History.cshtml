@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewData["Title"] = "History";
+    ViewData["Username"] = ViewBag.Username;
+}
+
+<h1>Workout History</h1>
+<h1>Info: @ViewBag.History.Count</h1>
+<br /><br />
+<table class="table">
+    <tr>
+        <th scope="col">Workout Type</th>
+        <th scope="col">Time Started</th>
+        <th scope="col">Time Ended</th>
+    </tr>
+    @for(int i = 0; i < ViewBag.History.Count; i++)
+    {
+        <tr>
+            <td scope="row">@ViewBag.History[i].WorkoutType</td>
+            <td>@ViewBag.History[i].TimeStarted</td>
+            <td>@ViewBag.History[i].TimeEnded</td>
+        </tr>
+    }
+</table>
+

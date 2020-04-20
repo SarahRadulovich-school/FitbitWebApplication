@@ -18,17 +18,22 @@ namespace FitbitWebApplication.Controllers
         [HttpPost]
         public IActionResult LoginForm(UserProfile user)
         {
-            //todo: validation
             if (!ModelState.IsValid)
             {
-                return View();
+                return View("Index");
             }
 
             var userProfile = UserProfile.Instance;
             userProfile.Name = user.Name;
+            userProfile.Password = user.Password;
 
             //Either find or create the user in the database
-            Repository.AddUser(user.Name);
+            var userAdded = Repository.AddUser();
+
+            if (!userAdded && (Repository.GetPassword(user) != user.Password))
+            {
+                return View("Index");
+            }
 
             return RedirectToAction("Index", "Home");
         }

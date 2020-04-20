@@ -10,33 +10,19 @@ namespace FitbitWebApplication.Models
     {
         private static FitnessDbContext _database = new FitnessDbContext();
 
-        //public static UserProfile GetUser(string name)
-        //{
-        //    var user = _database.Users.FirstOrDefault(u => u.Name.Equals(name));
-
-        //    if(user == null)
-        //    {
-        //        throw new Exception("User does not exist");
-        //    }
-
-        //    return user;
-        //}
-        public static void AddUser(string name)
+        public static bool AddUser()
         {
+            UserProfile user = UserProfile.Instance;
             //no duplicate id's allowed
-            var duplicate = _database.Users.FirstOrDefault(u => u.Name.Equals(name));
+            var duplicate = _database.Users.FirstOrDefault(u => u.Name.Equals(user.Name));
             if(duplicate != null)
             {
-                return;
+                return false;
             }
-
-            var user = new UserProfile
-            {
-                Name = name
-            };
 
             _database.Users.Add(user);
             _database.SaveChanges();
+            return true;
         }
 
         public static void AddWorkout(UserProfile user, string workoutType)
@@ -47,7 +33,7 @@ namespace FitbitWebApplication.Models
                 User = user,
                 WorkoutType = workoutType
             };
-
+            GetWorkoutHistory();
             _database.Workouts.Add(workout);
             _database.SaveChanges();
 
@@ -63,14 +49,18 @@ namespace FitbitWebApplication.Models
             //TODO
         }
 
-        public static void AssignTimeStartedToWorkout()
+        public static void GetWorkoutHistory()
         {
-            //TODO
+            var user = UserProfile.Instance;
+            List<Workout> list = _database.Workouts.Include(w => w.User).Where(w => w.Id == user.Id).ToList();
+
+            user.History = list;
         }
 
-        public static void AssignTimeEndedToWorkout()
+        public static string GetPassword(UserProfile username)
         {
-            //TODO
+            var pass = _database.Users.Where(u => u.Name == username.Name).FirstOrDefault().Password;
+            return pass;
         }
     }
 }
