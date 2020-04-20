@@ -52,7 +52,8 @@ namespace FitbitWebApplication.Models
         public static void GetWorkoutHistory()
         {
             var user = UserProfile.Instance;
-            List<Workout> list = _database.Workouts.Include(w => w.User).Where(w => w.Id == user.Id).ToList();
+            var person = _database.Users.Where(u => u.Name == user.Name).FirstOrDefault();
+            List<Workout> list = _database.Workouts.Include(w => w.User).Where(w => w.User.Id == person.Id).ToList();
 
             user.History = list;
         }
