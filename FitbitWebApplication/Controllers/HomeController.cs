@@ -31,6 +31,7 @@ namespace FitbitWebApplication.Controllers
             {
                 ViewBag.workout = User.CurrentPlan.Name;
             }
+
             ViewBag.Username = User.Name;
             return View();
         }
@@ -39,6 +40,20 @@ namespace FitbitWebApplication.Controllers
         {
             return RedirectToAction("Index", "Workout");
         }
+
+        public IActionResult History()
+        {
+            Repository.GetWorkoutHistory();
+            List<Workout> workoutHistory = User.History;
+            if (workoutHistory != null)
+            {
+                ViewBag.History = workoutHistory;
+            }
+
+            ViewBag.Username = User.Name;
+            return View();
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

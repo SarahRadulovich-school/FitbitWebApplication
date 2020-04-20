@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,13 +10,16 @@ namespace FitbitWebApplication.Models
 	public class UserProfile
 	{
         public int Id { get; set; }
+        [Required]
         public string Name { get; set; }
+        [Required]
+        public string Password { get; set; }
         public DateTime Birthday { get; set; }
         public string Gender { get; set; }
-
         [NotMapped]
         public WorkoutPlan CurrentPlan { get; set; }
-        //public WorkoutHistory History { get; set; }
+        [NotMapped]
+        public List<Workout> History { get; set; }
 
         private static UserProfile _instance = null;
         public static UserProfile Instance
@@ -33,18 +37,6 @@ namespace FitbitWebApplication.Models
         public UserProfile()
         {
 
-        }
-
-        public UserProfile(string name, DateTime birthday, string gender)
-        {
-            Name = name;
-            Birthday = birthday;
-            Gender = gender;
-        }
-
-        public void ChangePlan(WorkoutPlan newPlan)
-        {
-            //CurrentPlan = newPlan;
         }
 
         public void LinkToFitbit()
