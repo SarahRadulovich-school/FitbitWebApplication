@@ -7,43 +7,50 @@
 
 <link rel="stylesheet" href="~/css/timer.css" />
 
+<div class="timer-outer-container">
+    <div id="header-info" style="display: none">
+        <h3 id="track-interval"> </h3>
+        <h4 id="track-rpe"> </h4>
+        <h4 id="track-desc"> </h4>
+    </div>
+    <div id="preworkout-div">
+        <h2 id="type">@ViewBag.WorkoutName Training</h2>
+        <h4 id="total-time"></h4>
+        <br/>
+        <button onclick="startWorkout()" class="button">Start the workout!</button>
+    </div>
+    <div class="timer-inner-container" id="workout-div" style="display: none">
+        <br/>
 
-<button onclick="startWorkout()">Start the workout!</button>
-
-<br />
-<span id="intInfo"></span>
-<h2 id="type">@ViewBag.WorkoutName</h2>
-
-<div id="time"></div>
-<div class="base-timer">
-    <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <g class="base-timer__circle">
-            <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45" />
-            <path
-                id="base-timer-path-remaining"
-                stroke-dasharray="283"
-                class="base-timer__path-remaining"
-                d="
+        <div class="base-timer">
+            <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <g class="base-timer__circle">
+                    <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45"/>
+                    <path id="base-timer-path-remaining"
+                          stroke-dasharray="283"
+                          class="base-timer__path-remaining"
+                          d="
                   M 50, 50
                   m -45, 0
                   a 45,45 0 1,0 90,0
-                  a 45,45 0 1,- -90,0
-                "
-            ></path>
-            </g>
-    </svg>
-    <span id="base-timer-label" class="base-timer__label"></span>
+                  a 45,45 0 1,0 -90,0
+                "></path>
+                </g>
+            </svg>
+            <span id="base-timer-label" class="base-timer__label"></span>
+        </div>
+    </div>
 </div>
+    <audio id="highBeep">
+        <source src="~/Assets/highBeep.wav" type="audio/wav">
+    </audio>
+    <audio id="lowBeep">
+        <source src="~/Assets/lowBeep.wav" type="audio/wav">
+    </audio>
+    <audio id="swoosh">
+        <source src="~/Assets/swoosh.ogg" type="audio/ogg">
+    </audio>
 
-<audio id="highBeep">
-    <source src="~/Assets/highBeep.wav" type="audio/wav">
-</audio>
-<audio id="lowBeep">
-    <source src="~/Assets/lowBeep.wav" type="audio/wav">
-</audio>
-<audio id="swoosh">
-    <source src="~/Assets/swoosh.ogg" type="audio/ogg">
-</audio>
 
 <!--Timer functionality script-->
 <script>
@@ -62,7 +69,6 @@
 
     //display variables
     var display = document.querySelector('#base-timer-label');
-    var intInfo = document.querySelector('#intInfo');
 
     //audio variables
     var highBeep = document.querySelector('#highBeep');
@@ -70,9 +76,26 @@
     var swoosh = document.querySelector('#swoosh');
 
     //variables to track time left, time limit, and time passed
-    var timeLimit = intervals[0].secs;
-    var timePassed = 0;
+    var timeLimit = intervals[0].secs + 1;
     var timeLeft = timeLimit;
+
+    //variables for colors based on RPE scale, index = rpe, index 0 = grey (empty)
+    //http://www.perbang.dk/rgbgradient/
+    var COLOR_CODES = [
+        "#808080",
+        "#0040F0",
+        "#0088FF",
+        "#00C3E8",
+        "#00EAA5",
+        "#00EC3B", 
+        "#4FEE1E",
+        "#9EEF00",
+        "#F1D500", 
+        "#F36800",
+        "#F50006"
+    ];
+
+    var remainingPathColor = COLOR_CODES[0];
 
     //starts and handles the timer and display for one interval of the workout
     function startTimer(duration) {
@@ -101,24 +124,29 @@
 
             display.textContent = minutes + ":" + seconds;
 
-            timePassed++;
-            timeLeft = timeLimit - timePassed;
+            timeLeft --;
 
         };
-        // we don't want to wait a full second before the timer starts
-        timer();
-        var interval = setInterval(function() {
-                timesRun += 1;
-                if (timesRun === duration) {
-                    clearInterval(interval);
 
-                    //add 1 to the index and call start interval again
-                    intIndex ++;
-                    startInterval(intIndex);
-                }
-                timer();
-            },
-            1000);
+        // we don't want to wait a full second before the timer starts
+        if (intIndex === 0) {
+            timer();
+            setCircleDasharray();
+        }
+
+        var interval = setInterval(function () {
+            timesRun += 1;
+            if (timesRun === duration) {
+                clearInterval(interval);
+
+                //add 1 to the index and call start interval again
+                intIndex++;
+                startInterval(intIndex);
+            }
+            timer();
+            setCircleDasharray();
+        },
+        1000);
     };
 
     //gets called by button and then at the end of each interval to start the next interval (if there is one)
@@ -131,22 +159,30 @@
 
         var currInterval = intervals[index];
 
+        displayInfo();
+
         //reset the counting variables
         timeLimit = currInterval.secs;
-        timeLeft = timeLimit;
-        timePassed = 0;
+        timeLeft = timeLimit + 1;
 
-        intInfo.textContent = `${currInterval.rpe} - ${currInterval.desc}`;
+        changeColor(currInterval.rpe);
 
         swoosh.play();
         startTimer(currInterval.secs);
-
     };
 
     //directed here after timer end to pass the index of
     function endWorkout() {
         intIndex = 0;
-        test.textContent = "Workout Completed!";
+
+        var intOut = document.getElementById("track-interval").textContent = "Workout Complete!";
+        var rpeOut = document.getElementById("track-rpe").textContent = "";
+        var descOut = document.getElementById("track-desc").textContent = "";
+
+        changeColor(0);
+
+        stopAnimation();
+        resetCircleDasharray();
 
         var count = 0;
         //play end beep three times
@@ -159,25 +195,90 @@
             },
             200);
 
-
     }
 
     //start the workout with a 3-second get ready timer
     function startWorkout() {
+        //hide preworkout div, show workout div
+        document.getElementById("workout-div").style.display = "block";
+        document.getElementById("preworkout-div").style.display = "none";
+        document.getElementById("header-info").style.display = "inline-block";
+
+        //prepare the info headers
+        var intOut = document.getElementById("track-interval").textContent = "Get Ready!";
+        var rpeOut = document.getElementById("track-rpe").textContent = "";
+        var descOut = document.getElementById("track-desc").textContent = "";
+
         //play countdown beeps
-        var count = 0;
+        var count = 4;
         var interval = setInterval(function () {
-                count ++;
-                if (count === 4) {
+                count --;
+                if (count === 0) {
                     clearInterval(interval);
                     startInterval(0);
                 }
-                if (count < 4)
+                if (count > 0) {
                     lowBeep.play();
+                    display.textContent = count;
+                }
             },
             1000);
 
-        test.textContent = "Get Ready!";
+        intInfo.textContent = "Get Ready!";
+    }
+
+    function calculateTimeFraction() {
+        var rawFraction = timeLeft / (timeLimit + 1);
+        return rawFraction - (1 / timeLimit) * (1 - rawFraction);
+    }
+
+    //set dasharray size based on fraction of time left as percentage out of 283
+    function setCircleDasharray() {
+        var circleDasharray = (calculateTimeFraction() * 283).toFixed(0) + " 283";
+        document.getElementById("base-timer-path-remaining")
+            .setAttribute("stroke-dasharray", circleDasharray);
+    }
+
+    function resetCircleDasharray() {
+        document.getElementById("base-timer-path-remaining").setAttribute("stroke-dasharray", "283");
+    }
+
+    //add class that removes animation speed
+    function stopAnimation() {
+        document.getElementById("base-timer-path-remaining").classList.remove("animation");
+        document.getElementById("base-timer-path-remaining").classList.add("no-animation");
+    }
+
+    function startAnimation() {
+        document.getElementById("base-timer-path-remaining").classList.remove("no-animation");
+        document.getElementById("base-timer-path-remaining").classList.add("animation");
+    }
+
+    function changeColor(index) {
+        document.getElementById("base-timer-path-remaining").style.stroke = COLOR_CODES[index];
+    }
+
+    window.onload = function() {
+        var totalSecs = 0;
+
+        for (var i = 0; i < intervals.length; i++) {
+            totalSecs += intervals[i].secs;
+        }
+
+        var minutes = totalSecs / 60;
+
+        document.getElementById("total-time").textContent = "Total time: " + minutes + " minutes";
+    }
+
+    function displayInfo() {
+        var intOut = document.getElementById("track-interval");
+        var rpeOut = document.getElementById("track-rpe");
+        var descOut = document.getElementById("track-desc");
+
+        intOut.textContent = "Interval " + (intIndex + 1) + "/" + intervals.length;
+        rpeOut.textContent = "Exertion level: " + intervals[intIndex].rpe;
+        descOut.textContent = intervals[intIndex].desc;
+
     }
 
 </script>

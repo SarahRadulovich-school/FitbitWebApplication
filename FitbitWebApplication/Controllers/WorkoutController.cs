@@ -44,7 +44,7 @@ namespace FitbitWebApplication.Controllers
                     User.CurrentPlan = new CardioWorkoutPlan();
                     break;
                 default:
-                    User.CurrentPlan = new CardioWorkoutPlan();
+                    User.CurrentPlan = new IntervalWorkoutPlan();
                     break;
             }
             return RedirectToAction("Workout");

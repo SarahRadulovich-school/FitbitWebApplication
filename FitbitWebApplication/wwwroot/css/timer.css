@@ -4,6 +4,8 @@
     position: relative;
     height: 300px;
     width: 300px;
+    margin: auto;
+    margin-top: 20px;
 }
 
 .base-timer__circle {
@@ -25,4 +27,77 @@
     align-items: center;
     justify-content: center;
     font-size: 48px;
+}
+
+.base-timer__path-remaining {
+    stroke-width: 7px;
+    stroke-linecap: round;
+    transform: rotate(90deg);
+    transform-origin: center;
+    transition: 1s linear all;
+    stroke: #0040F0;
+}
+
+.base-timer__svg {
+    /*animation moves left to right*/
+    transform: scaleX(-1);
+}
+
+.no-animation {
+    transition-duration: 0s;
+}
+
+.animation {
+    transition-duration: 1s;
+}
+
+.button {
+    font-size: 24px;
+    background-color: #AEBD24;
+    width: 20rem;
+    height: 3rem;
+    border: none;
+    color: white;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+}
+
+.button:hover {
+    background-color: #becf27;
+}
+
+.timer-outer-container {
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    padding: 10px;
+}
+
+.timer-inner-container {
+    margin: auto;
+    text-align: center;
+}
+
+#type {
+    text-align: center;
+}
+
+#total-time {
+    text-align: center;
+}
+
+.test {
+    margin: auto;
+    width: 100%;
+    display: inline-block;
+}
+
+.header-info {
+    min-width: 100px;
+    width: auto;
+    height: 200px;
+    display: inline-block;
 }
