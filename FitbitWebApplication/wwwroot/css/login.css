@@ -1,0 +1,81 @@
+﻿body {
+    color: #707070;
+    font-family: Bahnschrift;
+}
+
+.container{
+    margin: 0px;
+    max-width: 100%;
+}
+
+.row {
+    height: 89%;
+}
+
+.navbar {
+    margin-bottom: 0px !important;
+}
+
+.inner-login {
+    width: 20rem;
+    margin-top: 4rem;
+    margin-left: 14rem;
+}
+
+.right-half {
+    padding: 0px;
+    height:90%;
+}
+
+.left-half {
+    padding: 0px;
+    height: 90%;
+}
+
+.button {
+    font-size: 24px;
+    background-color: #AEBD24;
+    width: 20rem;
+    height: 3rem;
+    border: none;
+    color: white;
+}
+
+    .button:hover {
+        background-color: #becf27;
+    }
+
+.textbox {
+    height: 3rem;
+    width: 20rem;
+    padding: 5px 15px;
+    font-size: 20px;
+}
+
+input[type=checkbox] {
+    width: 20px;
+    height: 20px;
+    background-color: white;
+}
+
+.title{
+    margin-bottom: 1rem;
+    font-weight: bold;
+}
+
+h6{
+    padding: 0 0 1rem 0;
+}
+
+.account-link {
+    color: #0082B4 !important;
+}
+
+#forgot-password{
+    float: right;
+}
+
+img{
+    max-width: 100%;
+    max-height: 100%;
+}

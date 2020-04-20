@@ -1,0 +1,45 @@
+﻿body {
+    background-color: #C0C1B9;
+    color: #707070;
+}
+
+h1 {
+    font-family: Bahnschrift;
+    font-weight: bold;
+    color: #444444;
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.content {
+    background-color: white;
+    border-radius: 15px;
+    border-top: solid #AEBD24 35px;
+    margin: 0 auto;
+}
+
+.outer-content {
+    margin-left: auto;
+}
+
+img{
+    width: 8rem;
+    height: 8rem;
+    float: left;
+    margin-right: 4rem;
+}
+
+.workout {
+    font-size: 24px;
+    border: solid 2px;
+    border-color: #444444;
+    border-radius: 10px;
+    width: 20rem;
+    height: 3rem;
+    color: #444444;
+    background-color: white;
+}
+
+    button:hover {
+        background-color: #C0C1B9;
+    }

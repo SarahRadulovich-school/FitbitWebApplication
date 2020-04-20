@@ -1,0 +1,48 @@
+﻿@model UserProfile
+@{ 
+    ViewData["Title"] = "Login";
+    Layout = null;
+}
+
+@{ //This page needed a different header than the rest of the site because the user isn't logged in yet
+}
+<html>
+<head>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/style.css" />
+    <link rel="stylesheet" href="~/css/login.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
+            <div class="container navigation">
+                <a class="navbar-brand" asp-area="" asp-controller="Login" asp-action="Index">BeatEven</a>
+            </div>
+        </nav>
+    </header>
+    <div>
+        <main role="main" class="container">
+            <div class="row">
+                <div class="left-half col-6">
+                    <div class="inner-login align-self-center">
+                        <h1 class="title">Login</h1>
+                        <h6>Don't have an account? <a class="account-link">Type your name and password to get started!</a></h6>
+
+                        <form asp-action="LoginForm">
+                            <input asp-for="Name" class="textbox" type="text" placeholder="Your Name" /><br /><br />
+                            <input asp-for="Password" class="textbox" type="text" placeholder="Password" /><br /><br />
+                            <input id="remember" type="checkbox" />
+                            <label for="remember">Remember Me</label>
+                            <br /><br />
+                            <input class="button" type="submit" value="Login">
+                        </form>
+                    </div>
+                </div>
+                <div class="right-half col-6">
+                    <img src="~/Assets/jogger_edit.png" />
+                </div>
+            </div></main>
+    </div>
+</body>
+</html>
+

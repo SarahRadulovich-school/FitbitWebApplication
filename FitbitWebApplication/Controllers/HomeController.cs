@@ -13,18 +13,45 @@ namespace FitbitWebApplication.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
+        public UserProfile User { get; set; }
+
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+            User = UserProfile.Instance;
         }
 
         public IActionResult Index()
         {
+            if(User.CurrentPlan == null)
+            {
+                ViewBag.workout = "test";
+            }
+            else
+            {
+                ViewBag.workout = User.CurrentPlan.Name;
+            }
+
+            ViewBag.Username = User.Name;
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult ToWorkout()
         {
+            return RedirectToAction("Index", "Workout");
+        }
+
+        public IActionResult History()
+        {
+            Repository.GetWorkoutHistory();
+
+            List<Workout> workoutHistory = User.History;
+            if(workoutHistory != null)
+            {
+                ViewBag.History = workoutHistory;
+            }
+
+            ViewBag.Username = User.Name;
             return View();
         }
 
@@ -33,5 +60,6 @@ namespace FitbitWebApplication.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
     }
 }

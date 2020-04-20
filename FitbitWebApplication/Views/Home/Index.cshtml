@@ -1,8 +1,9 @@
-﻿@{
+﻿
+@{
     ViewData["Title"] = "Home Page";
+    ViewData["Username"] = ViewBag.Username;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h1>Welcome!</h1>
+<h3>Test: Current workout is @ViewBag.workout</h3>
+<h3>Test 2: History - @ViewBag.History</h3>
