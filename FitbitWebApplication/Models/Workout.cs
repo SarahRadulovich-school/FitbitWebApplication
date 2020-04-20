@@ -9,8 +9,7 @@ namespace FitbitWebApplication.Models
     {
         public int Id { get; set; }
         public UserProfile User { get; set; }
-        public DateTime TimeStarted { get; set; }
-        public DateTime TimeEnded { get; set; }
+        public DateTime Date { get; set; }
         public string WorkoutType { get; set; }
         public bool isCompleted { get; set; }
     }

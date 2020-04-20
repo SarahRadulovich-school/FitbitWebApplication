@@ -44,9 +44,8 @@ namespace FitbitWebApplication.Controllers
         public IActionResult History()
         {
             Repository.GetWorkoutHistory();
-
             List<Workout> workoutHistory = User.History;
-            if(workoutHistory != null)
+            if (workoutHistory != null)
             {
                 ViewBag.History = workoutHistory;
             }
@@ -54,6 +53,7 @@ namespace FitbitWebApplication.Controllers
             ViewBag.Username = User.Name;
             return View();
         }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

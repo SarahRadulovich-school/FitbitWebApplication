@@ -14,7 +14,10 @@ namespace FitbitWebApplication.Controllers
         //page to select a workout 
         public IActionResult Index()
         {
-            User = UserProfile.Instance;
+            if (User == null)
+            {
+                User = UserProfile.Instance;
+            }
 
             ViewBag.Username = User.Name;
 
@@ -44,7 +47,7 @@ namespace FitbitWebApplication.Controllers
                     User.CurrentPlan = new CardioWorkoutPlan();
                     break;
                 default:
-                    User.CurrentPlan = new CardioWorkoutPlan();
+                    User.CurrentPlan = new IntervalWorkoutPlan();
                     break;
             }
             return RedirectToAction("Workout");
@@ -70,6 +73,24 @@ namespace FitbitWebApplication.Controllers
             ViewBag.WorkoutName = name;
 
             return View(list);
+        }
+
+        [HttpPost]
+        public IActionResult Save(string completed)
+        {
+            bool isCompleted = (completed == "true");
+            var date = DateTime.Now;
+
+            if (User == null)
+            {
+                User = UserProfile.Instance;
+            }
+
+            string type = User.CurrentPlan.Name;
+
+            Repository.AddWorkout(type, date, isCompleted);
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

@@ -25,18 +25,20 @@ namespace FitbitWebApplication.Models
             return true;
         }
 
-        public static void AddWorkout(UserProfile user, string workoutType)
+        public static void AddWorkout(string workoutType, DateTime date, bool completed)
         {
+            var user = UserProfile.Instance;
+            var person = _database.Users.Where(u => u.Name == user.Name).FirstOrDefault();
             //TODO: TimeStarted and TimeCompleted
-            var workout = new Workout
-            {
-                User = user,
-                WorkoutType = workoutType
-            };
-            GetWorkoutHistory();
+            var workout = new Workout();
+            workout.User = person;
+            workout.WorkoutType = workoutType;
+            workout.Date = date;
+            workout.isCompleted = completed;
             _database.Workouts.Add(workout);
             _database.SaveChanges();
 
+            GetWorkoutHistory();
         }
 
         public static void AssignBirthdayToUser()
