@@ -5,14 +5,35 @@
     var list = Model;
 }
 
+<link rel="stylesheet" href="~/css/timer.css" />
 
-<link rel="stylesheet" href="~/css/fitnessplan.css" />
 
 <button onclick="startWorkout()">Start the workout!</button>
-<div>Registration closes in <span id="time"></span> minutes!</div>
-<br/>
-<span id="test">not updated</span>
-<p id="type">@ViewBag.WorkoutName</p>
+
+<br />
+<span id="intInfo"></span>
+<h2 id="type">@ViewBag.WorkoutName</h2>
+
+<div id="time"></div>
+<div class="base-timer">
+    <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <g class="base-timer__circle">
+            <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45" />
+            <path
+                id="base-timer-path-remaining"
+                stroke-dasharray="283"
+                class="base-timer__path-remaining"
+                d="
+                  M 50, 50
+                  m -45, 0
+                  a 45,45 0 1,0 90,0
+                  a 45,45 0 1,- -90,0
+                "
+            ></path>
+            </g>
+    </svg>
+    <span id="base-timer-label" class="base-timer__label"></span>
+</div>
 
 <audio id="highBeep">
     <source src="~/Assets/highBeep.wav" type="audio/wav">
@@ -24,28 +45,34 @@
     <source src="~/Assets/swoosh.ogg" type="audio/ogg">
 </audio>
 
+<!--Timer functionality script-->
 <script>
     //get the list of intervals
     var intervals = @Html.Raw(Json.Serialize(list.Select(
-                      interval => new
-                      {
-                          rpe = interval.RPE,
-                          desc = interval.Desc,
-                          secs = interval.Secs
-                      })
-                 ));
+                        interval => new
+                        {
+                            rpe = interval.RPE,
+                            desc = interval.Desc,
+                            secs = interval.Secs
+                        })
+                        ));
 
-    //keep track of index of the current interval 
+    //keep track of index of the current interval
     var intIndex = 0;
 
     //display variables
-    var display = document.querySelector('#time');
-    var test = document.querySelector('#test');
+    var display = document.querySelector('#base-timer-label');
+    var intInfo = document.querySelector('#intInfo');
 
     //audio variables
     var highBeep = document.querySelector('#highBeep');
     var lowBeep = document.querySelector('#lowBeep');
     var swoosh = document.querySelector('#swoosh');
+
+    //variables to track time left, time limit, and time passed
+    var timeLimit = intervals[0].secs;
+    var timePassed = 0;
+    var timeLeft = timeLimit;
 
     //starts and handles the timer and display for one interval of the workout
     function startTimer(duration) {
@@ -57,7 +84,7 @@
         var timesRun = 0;
 
         function timer() {
-            // get the number of seconds that have elapsed since 
+            // get the number of seconds that have elapsed since
             // startTimer() was called
             diff = duration - (((Date.now() - start) / 1000) | 0);
 
@@ -72,7 +99,10 @@
             minutes = minutes < 10 ? "0" + minutes : minutes;
             seconds = seconds < 10 ? "0" + seconds : seconds;
 
-            display.textContent = minutes + ":" + seconds; 
+            display.textContent = minutes + ":" + seconds;
+
+            timePassed++;
+            timeLeft = timeLimit - timePassed;
 
         };
         // we don't want to wait a full second before the timer starts
@@ -101,8 +131,12 @@
 
         var currInterval = intervals[index];
 
-        //TODO: change this to actual display
-        test.textContent = `${currInterval.rpe} - ${currInterval.desc}`;
+        //reset the counting variables
+        timeLimit = currInterval.secs;
+        timeLeft = timeLimit;
+        timePassed = 0;
+
+        intInfo.textContent = `${currInterval.rpe} - ${currInterval.desc}`;
 
         swoosh.play();
         startTimer(currInterval.secs);
