@@ -12,8 +12,7 @@
     <tr>
         <th scope="col">#</th>
         <th scope="col">Workout Type</th>
-        <th scope="col">Started Workout</th>
-        <th scope="col">Total Time</th>
+        <th scope="col">Date</th>
         <th scope="col">Completed</th>
     </tr>
     @for (int i = 0; i < ViewBag.History.Count; i++)
@@ -21,9 +20,7 @@
         <tr>
             <th scope="row">@index</th>
             <td>@ViewBag.History[i].WorkoutType</td>
-            <td>@ViewBag.History[i].TimeStarted</td>
-            @{var time = (ViewBag.History[i].TimeEnded - ViewBag.History[i].TimeStarted);}
-            <td>@time</td>
+            <td>@ViewBag.History[i].Date</td>
             @{if (ViewBag.History[i].isCompleted)
                 {
                     <td>Yes</td>

@@ -79,6 +79,7 @@ namespace FitbitWebApplication.Controllers
         public IActionResult Save(string completed)
         {
             bool isCompleted = (completed == "true");
+            var date = DateTime.Now;
 
             if (User == null)
             {
@@ -87,7 +88,7 @@ namespace FitbitWebApplication.Controllers
 
             string type = User.CurrentPlan.Name;
 
-            Repository.AddWorkout(type, isCompleted);
+            Repository.AddWorkout(type, date, isCompleted);
 
             return RedirectToAction("Index", "Home");
         }
