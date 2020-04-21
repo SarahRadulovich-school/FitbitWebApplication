@@ -30,7 +30,7 @@ namespace FitbitWebApplication.Controllers
             //Either find or create the user in the database
             var userAdded = Repository.AddUser();
 
-            if (!userAdded && (Repository.GetPassword(user) != user.Password))
+            if (!userAdded && (! Repository.GetPassword(user).Equals(user.Password)))
             {
                 return View("Index");
             }
