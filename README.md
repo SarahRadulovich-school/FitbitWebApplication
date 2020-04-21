@@ -8,15 +8,15 @@ RPE is a scale that defines how much physical effort a person is exerting. The s
 
 Here are the definitions for each level on the scale:
 
-1   - Lightest-level of activity, such as sitting on the couch or sleeping.
-2-3 - Light activity. You can carry a complete conversation and maintain this level for hours
-4-6 - Moderate Activity. You can hold a short conversation, but you're breathing heavily.
+1   - Lightest-level of activity, such as sitting on the couch or sleeping.    
+2-3 - Light activity. You can carry a complete conversation and maintain this level for hours    
+4-6 - Moderate Activity. You can hold a short conversation, but you're breathing heavily.    
 7-8 - Vigorous Activity. You're short of breath and can only speak a sentence at a time. You're starting 
-        to get uncomfortable.
+        to get uncomfortable.    
 9   - Very Hard Activity. You can barely breathe and can only speak a few words at a time. It's really 
-        hard to keep this up.
+        hard to keep this up.    
 10  - Max Effort Activity. You're completely out of breath and unable to talk. It feels almost 
-        impossible to keep going and this can't be maintained for more than a very short period of time.
+        impossible to keep going and this can't be maintained for more than a very short period of time.    
 
 __Login__
 
