@@ -92,5 +92,14 @@ namespace FitbitWebApplication.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        public IActionResult Logout()
+        {
+            //remove the instance of the user
+            UserProfile.ReleaseUser();
+
+            //redirect to login
+            return RedirectToAction("Index", "Login");
+        }
     }
 }

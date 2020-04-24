@@ -43,6 +43,11 @@ namespace FitbitWebApplication.Models
         {
             //TODO: figure out requirements to link to fitbit account
         }
+
+        public static void ReleaseUser()
+        {
+            _instance = null;
+        }
 		
 	}
 }
