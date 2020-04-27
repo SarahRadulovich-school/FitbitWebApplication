@@ -13,16 +13,17 @@ namespace FitbitWebApplication.Models
         public static bool AddUser()
         {
             UserProfile user = UserProfile.Instance;
-            //no duplicate id's allowed
-            var duplicate = _database.Users.FirstOrDefault(u => u.Name.Equals(user.Name));
-            if(duplicate != null)
-            {
-                return false;
-            }
 
             _database.Users.Add(user);
             _database.SaveChanges();
             return true;
+        }
+
+        public static UserProfile GetUser(string name)
+        {
+            var duplicate = _database.Users.FirstOrDefault(u => u.Name.Equals(name));
+
+            return duplicate;
         }
 
         public static void AddWorkout(string workoutType, DateTime date, bool completed)

@@ -1,6 +1,6 @@
 ﻿@model UserProfile
 @{ 
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = "Sign Up!";
     Layout = null;
     var Error = @ViewBag.Error;
 }
@@ -26,28 +26,22 @@
             <div class="row">
                 <div class="left-half col-6">
                     <div class="inner-login align-self-center">
-                        <h1 class="title">Login</h1>
-                        <h6>Don't have an account? <a href="@Url.Action("SignUp")" class="account-link">Click here to sign up!</a></h6>
+                        <h1 class="title">Sign Up</h1>
+                        <h6>Already have an account? <a href="@Url.Action("Index")" class="account-link">Click here to login!</a></h6>
                         @if (Error == "InvalidInput")
                         {
                             <p class="input-validation-error">Please fill in all fields.</p>
                         }
-                    <form asp-action="LoginForm">
-                        @if (Error == "UserDoesNotExist")
+                        @if (Error == "UserAlreadyExists")
                         {
-                            <p class="field-validation-error">A user with this name does not exist.</p>
+                            <p class="input-validation-error">A user with this name already exists.</p>
                         }
-                        <input asp-for="Name" required class="textbox" type="text" placeholder="Your Name" /><br /><br />
-                        @if (Error == "PasswordIncorrect")
-                        {
-                            <p class="field-validation-error">Incorrect password.</p>
-                        }
-                        <input asp-for="Password" required class="textbox" type="password" placeholder="Password" /><br /><br />
-                        <input id="remember" type="checkbox" />
-                        <label for="remember">Remember Me</label>
-                        <br /><br />
-                        <input class="button" type="submit" value="Login">
-                    </form>
+                        <form asp-action="SignUpForm">
+                            <input asp-for="Name" required class="textbox" id="username" type="text" placeholder="Your Username" /><br /><br />
+                            <input asp-for="Password" required class="textbox" id="password" type="password" placeholder="Password" /><br /><br />
+                            <br /><br />
+                            <input class="button" type="submit" value="Sign Up">
+                        </form>
                     </div>
                 </div>
                 <div class="right-half col-6">

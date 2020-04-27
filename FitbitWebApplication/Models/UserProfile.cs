@@ -14,8 +14,12 @@ namespace FitbitWebApplication.Models
         public string Name { get; set; }
         [Required]
         public string Password { get; set; }
+        [Required]
+        public string Salt { get; set; }
+        /*
         public DateTime Birthday { get; set; }
         public string Gender { get; set; }
+        */
         [NotMapped]
         public WorkoutPlan CurrentPlan { get; set; }
         [NotMapped]
@@ -47,6 +51,11 @@ namespace FitbitWebApplication.Models
         public static void ReleaseUser()
         {
             _instance = null;
+        }
+
+        public static void SetInstance(UserProfile user)
+        {
+            _instance = user;
         }
 		
 	}

@@ -23,15 +23,6 @@ namespace FitbitWebApplication.Controllers
 
         public IActionResult Index()
         {
-            if(User.CurrentPlan == null)
-            {
-                ViewBag.workout = "test";
-            }
-            else
-            {
-                ViewBag.workout = User.CurrentPlan.Name;
-            }
-
             ViewBag.Username = User.Name;
             return View();
         }
